@@ -1,4 +1,4 @@
 #+TITLE: Documento principal de las actividades y desarollo de la ayudantía
 
 La escritura del pdf ejercicios_ayudantia-2021.pdf en la raiz de este repositorio se lleva acabo mediante org-mode, Framework de marcado y organizacion personal basado en texto plano.
-La generacion del PDF desde un buffer de main.org y ejecutando ~(org-latex-export-to-pdf)~
+La generacion del PDF desde un buffer de main.org se lleva acabo con  ~M-x org-latex-export-to-pdf~
