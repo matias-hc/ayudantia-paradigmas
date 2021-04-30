@@ -1,0 +1,7 @@
+#+TITLE: Repositorio de codigo fuente de la ayudantía para el ramo paradigma de programación de la USACH
+
+* Repositorio
+Repositorio GIT origen con codigo fuente y documentacion generada para la ayudantia, para descargar el codigo mediante git:
+#+begin_src sh
+git clone https://github.com/matias-hc/ayudantia-paradigmas.git
+#+end_src
