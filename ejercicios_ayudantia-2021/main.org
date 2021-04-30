@@ -8,8 +8,10 @@
 #+OPTIONS: toc:2
 :END:
 #+TITLE: Ejercicios ayudantia 2021
+:META:
 #+AUTHOR: Matias Hurtado Carrasco
 #+KEYWORDS: Programacion, Paradigma de programacion, Programming, Programming paradigm, Python, Programacion funcional, Functional programming, Scheme, Java, POO, Programacion orientada a objetos, OOP, Object oriented programming
+:END:
 
 \newpage
 * <2021-04-29 Thu>
@@ -20,36 +22,118 @@
 tup = (1 , 2)
 
 for v in tup:
-print(v)
-#+end_src
+    print(v)
+    #+end_src
+
+    #+RESULTS:
+    : 1
+    : 2
 
 2) lista
-     #+begin_src python :results output
- lis = [0, 2, 4, 6]
+    #+begin_src python :results output
+lis = [0, 2, 4, 6]
+lis.append(11)
 
- for v in lis:
-     print(v)
-     #+end_src
+for v in lis:
+    print(v//2, v%2)
+    #+end_src
+
+    #+RESULTS:
+    : 0 0
+    : 1 0
+    : 2 0
+    : 3 0
+    : 5 1
 
 3) funcion
-     #+begin_src python :results output
- def funp(value):
-     while value > 0:
-         yield value
-         value -= 1
-     else:
-         return 0
+    #+begin_src python :results output
+def funp(value):
+    while value > 0:
+        yield value
+        value -= 1
+    else:
+        return 0
 
- for v in funp(5):
-     print("funp:", str(v))
-     #+end_src
+for v in funp(5):
+    print("funp: " + str(v+1))
+    #+end_src
+
+    #+RESULTS:
+    : funp: 6
+    : funp: 5
+    : funp: 4
+    : funp: 3
+    : funp: 2
 
 4) lista de funciones
-     #+begin_src python :results output
- lisf = [lambda x, y: x**2 + y, lambda x, y: x + y**2]
+    #+begin_src python :results output
+lisf = [lambda x, y: x**2 + y, lambda x, y: x + y**2]
 
- for f in lisf:
-     print("f({},{}) = {}".format(2, 3, f(2,3)))
-     #+end_src
+for f in lisf:
+    print("f({},{}) = {}".format(2, 3, f(2,3)))
+    #+end_src
 
-** Ejercicios
+    #+RESULTS:
+    : f(2,3) = 7
+    : f(2,3) = 11
+
+5) string
+    #+begin_src python :results output
+st = "hola"
+
+for c in st:
+    print("letra {}".format(c))
+    #+end_src
+
+    #+RESULTS:
+    : letra h
+    : letra o
+    : letra l
+    : letra a
+
+6) conjunto
+    #+begin_src python :results output
+try:
+    myset = { "algo", 4 , [1, 2]}
+    for e in myset:
+        print("{}".format(e))
+except TypeError as E:
+    print("TypeError:", E)
+
+myset2 = { "algo", 4 , (1, 2)}
+for e in myset2:
+    print("{} {}".format(e, type(e)))
+    #+end_src
+
+    #+RESULTS:
+    : TypeError: unhashable type: 'list'
+    : algo <class 'str'>
+    : (1, 2) <class 'tuple'>
+    : 4 <class 'int'>
+
+7) diccionarios
+    #+begin_src python :results output
+dic = { "llave1" : "valor1"
+        , 2 : 32
+        , 4 : "cabello"
+        , "9" : 48
+       }
+
+dic2 = {"2": 456, 48 : 'casi', 22 : 416, 100 : "no", "que", "queue"}
+
+for k in dic:
+    print("dic[{}] = {}".format(k, dic[k]))
+
+for i in range(101):
+    if i in dic2:
+        print((i, type(i)), (dic2[i], type(dic2[i])))
+    #+end_src
+
+    #+RESULTS:
+    : dic[llave1] = valor1
+    : dic[2] = 32
+    : dic[4] = cabello
+    : dic[9] = 48
+    : (22, <class 'int'>) (416, <class 'int'>)
+    : (48, <class 'int'>) ('casi', <class 'str'>)
+    : (100, <class 'int'>) ('no', <class 'str'>)
