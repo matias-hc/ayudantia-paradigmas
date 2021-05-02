@@ -5,3 +5,4 @@ Repositorio GIT origen con codigo fuente y documentacion generada para la ayudan
 #+begin_src sh
 git clone https://github.com/matias-hc/ayudantia-paradigmas.git
 #+end_src
+Para poder familiarizarse con git de forma mas sencilla, recomiendo [[https://www.gitkraken.com/][GitKraken]] como interfaz grafica de GIT.

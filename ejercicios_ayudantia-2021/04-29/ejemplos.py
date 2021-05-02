@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+# ejemplos practicos de iteracion sobre distintos objetos iterables en python, el testeo y desarollo se hizo con:
+# Python 3.9.4
+
 print("Tuplas:")
 tup = (1 , 2)
 print("{} = {}".format("tup", tup))
