@@ -137,3 +137,109 @@ for i in range(101):
     : (22, <class 'int'>) (416, <class 'int'>)
     : (48, <class 'int'>) ('casi', <class 'str'>)
     : (100, <class 'int'>) ('no', <class 'str'>)
+
+* <2021-05-06 Thu>
+** Ejercicios
+1) Dada un diccionario, generar una lista de tuplas 'llave, valor' ordenada por las llaves, y por los valores
+    #+begin_src python :results output
+## para poder comparar strings de tal forma que por ejemplo se cumpla
+## "a < B < c < D" (ignorar si es mayuscula) se compara con la key str.lower para
+## que las letras mayusculas al momento de comparacion valgan igual que las minusculas
+dic = {"abc" : 4, "casa" : 16, "ceramica" : 5, "LCC" : 3, "zebra" : 7}
+
+### ordenar por valor de la llave
+
+## usando el comprension de listas que itera sobre las llaves ordenadas
+#ld_byKey = [(k, dic[k]) for k in sorted(dic,key=str.lower)]
+
+## pasando a lista las tuplas llave/valor del metodo items() de diccionario, y ordenandola posteriormente
+ld_byKey = sorted(list(dic.items()), key=lambda tup : str.lower(tup[0]))
+
+### ordenar por valor de los item 'valor' del diccionario
+
+## usando el comprension de listas que itera sobre las llaves ordenadas con respecto a los valores correspondientes
+#ld_byVal = [(k, dic[k]) for k in sorted(dic,key=lambda k : dic[k])]
+
+ld_byVal = sorted(list(dic.items()), key=lambda tup : tup[1])
+
+print(ld_byKey)
+print(ld_byVal)
+    #+end_src
+
+    #+RESULTS:
+    : [('abc', 4), ('casa', 16), ('ceramica', 5), ('LCC', 3), ('zebra', 7)]
+    : [('LCC', 3), ('abc', 4), ('ceramica', 5), ('zebra', 7), ('casa', 16)]
+
+2) Implementar el mergesort para listas con distintos tipos de elementos, y que genere un diccionario de los tipos y las listas ordenadas que se encuentren
+    #+begin_src python :results output
+LD = ["Kz3UuwTG", 23, "duGkCWzB", 12,
+      "qju7TM5M", "4XnEE9ZJ", 46, "WAk0BSv4",
+      32, 14, "76HBLSP8", "IBUs3PZf",
+      16, 100, "amMnAkZW", "2jSRNUzD",
+      0, 23, "rYBe8CYl", 22]
+
+def mergesort_type(L):
+    if (largo := len(L)) <= 1:
+        return dict([(type(x), [x]) for x in L])
+    else:
+        return merge_type(mergesort_type(L[:(largo//2)]), mergesort_type(L[(largo//2):]))
+
+def merge_type(d1, d2):
+    D = dict()
+    for t in set(list(d1.keys())+list(d2.keys())):
+        if t in d1 and t in d2:
+            D[t] = merge(d1[t], d2[t])
+        elif t in d1:
+            D[t] = d1[t]
+        elif t in d2:
+            D[t] = d2[t]
+    return D
+
+def merge(l1, l2):
+    L=[]
+    while True :
+        if (len(l1) == 0):
+            L += l2
+            break
+        if (len(l2) == 0):
+            L += l1
+            break
+        if (l1[0] < l2[0]):
+            L.append(l1[0])
+            l1 = l1[1:]
+        else:
+            L.append(l2[0])
+            l2 = l2[1:]
+    return L
+
+def merge_add(D,l):
+    for obj in l:
+        if (tp:=type(obj)) in D:
+            D[tp].append(obj)
+        else:
+            D[tp] = [obj]
+
+for LT in mergesort_type(LD).items():
+    print(LT)
+    #+end_src
+
+    #+RESULTS:
+    : (<class 'str'>, ['2jSRNUzD', '4XnEE9ZJ', '76HBLSP8', 'IBUs3PZf', 'Kz3UuwTG', 'WAk0BSv4', 'amMnAkZW', 'duGkCWzB', 'qju7TM5M', 'rYBe8CYl'])
+    : (<class 'int'>, [0, 12, 14, 16, 22, 23, 23, 32, 46, 100])
+
+** Ejemplos
+1) Implementacion mediante lambda del factorial
+    #+begin_src python :results output
+print(
+    (lambda x :
+     exec('raise TypeError("Only non-negative integers allowed")')
+     if type(x) not in (int,float) or x<0 or x%1
+     else (
+             (fact := (lambda x :
+                       1 if x<=1
+                       else x * fact(x-1)))(x)))(7)
+    )
+    #+end_src
+
+  #+RESULTS:
+  : 5040
