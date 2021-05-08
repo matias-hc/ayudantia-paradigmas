@@ -140,11 +140,12 @@ for i in range(101):
 
 * <2021-05-06 Thu>
 ** Ejercicios
-1) Dada un diccionario, generar una lista de tuplas 'llave, valor' ordenada por las llaves, y por los valores
+1) Dado un diccionario, generar listas de tuplas 'llave, valor' ordenada por las llaves y por los valores respectivamente.
     #+begin_src python :results output
 ## para poder comparar strings de tal forma que por ejemplo se cumpla
-## "a < B < c < D" (ignorar si es mayuscula) se compara con la key str.lower para
-## que las letras mayusculas al momento de comparacion valgan igual que las minusculas
+## "a < B < c < D" (ignorar si es mayuscula) se compara con la key str.lower
+## para que las letras mayusculas al momento de comparacion valgan igual que
+## las minusculas
 dic = {"abc" : 4, "casa" : 16, "ceramica" : 5, "LCC" : 3, "zebra" : 7}
 
 ### ordenar por valor de la llave
@@ -152,12 +153,14 @@ dic = {"abc" : 4, "casa" : 16, "ceramica" : 5, "LCC" : 3, "zebra" : 7}
 ## usando el comprension de listas que itera sobre las llaves ordenadas
 #ld_byKey = [(k, dic[k]) for k in sorted(dic,key=str.lower)]
 
-## pasando a lista las tuplas llave/valor del metodo items() de diccionario, y ordenandola posteriormente
+## pasando a lista las tuplas llave/valor del metodo items() de diccionario,
+## y ordenandola posteriormente
 ld_byKey = sorted(list(dic.items()), key=lambda tup : str.lower(tup[0]))
 
 ### ordenar por valor de los item 'valor' del diccionario
 
-## usando el comprension de listas que itera sobre las llaves ordenadas con respecto a los valores correspondientes
+## usando el comprension de listas que itera sobre las llaves ordenadas con
+## respecto a los valores correspondientes
 #ld_byVal = [(k, dic[k]) for k in sorted(dic,key=lambda k : dic[k])]
 
 ld_byVal = sorted(list(dic.items()), key=lambda tup : tup[1])
@@ -170,7 +173,7 @@ print(ld_byVal)
     : [('abc', 4), ('casa', 16), ('ceramica', 5), ('LCC', 3), ('zebra', 7)]
     : [('LCC', 3), ('abc', 4), ('ceramica', 5), ('zebra', 7), ('casa', 16)]
 
-2) Implementar el mergesort para listas con distintos tipos de elementos, y que genere un diccionario de los tipos y las listas ordenadas que se encuentren
+2) Implementar mergesort para listas con distintos tipos de elementos, y que devuelva un diccionario de los tipos y las listas ordenadas correspondientes que se encuentren.
     #+begin_src python :results output
 LD = ["Kz3UuwTG", 23, "duGkCWzB", 12,
       "qju7TM5M", "4XnEE9ZJ", 46, "WAk0BSv4",
@@ -179,10 +182,11 @@ LD = ["Kz3UuwTG", 23, "duGkCWzB", 12,
       0, 23, "rYBe8CYl", 22]
 
 def mergesort_type(L):
-    if (largo := len(L)) <= 1:
+    if (Llen := len(L)) <= 1:
         return dict([(type(x), [x]) for x in L])
     else:
-        return merge_type(mergesort_type(L[:(largo//2)]), mergesort_type(L[(largo//2):]))
+        return merge_type(mergesort_type(L[:(Llen//2)]),
+                          mergesort_type(L[(Llen//2):]))
 
 def merge_type(d1, d2):
     D = dict()
@@ -228,7 +232,7 @@ for LT in mergesort_type(LD).items():
     : (<class 'int'>, [0, 12, 14, 16, 22, 23, 23, 32, 46, 100])
 
 ** Ejemplos
-1) Implementacion mediante lambda del factorial
+1) Implementacion mediante lambda del factorial. No es muy practica mas alla de ser una implementacion particularmente funcional, pero en python es una solucion bastante forzada y lejos de lo que se esperaria como una solucion.
     #+begin_src python :results output
 print(
     (lambda x :
@@ -241,5 +245,5 @@ print(
     )
     #+end_src
 
-  #+RESULTS:
-  : 5040
+    #+RESULTS:
+    : 5040
