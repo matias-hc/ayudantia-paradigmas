@@ -1,3 +1,4 @@
+# -*- ispell-local-dictionary: "es_CL" -*-
 :OPTIONS:
 #+LATEX_CLASS: article
 #+LATEX_CLASS_OPTIONS: [titlepage,11pt]
@@ -45,7 +46,7 @@ for v in lis:
     : 3 0
     : 5 1
 
-3) funcion
+3) función
     #+begin_src python :results output
 def funp(value):
     while value > 0:
@@ -232,7 +233,7 @@ for LT in mergesort_type(LD).items():
     : (<class 'int'>, [0, 12, 14, 16, 22, 23, 23, 32, 46, 100])
 
 ** Ejemplos
-1) Implementacion mediante lambda del factorial. No es muy practica mas alla de ser una implementacion particularmente funcional, pero en python es una solucion bastante forzada y lejos de lo que se esperaria como una solucion.
+1) Implementación mediante lambda del factorial. No es muy practica mas allá de ser una implementación particularmente funcional, pero en Python es una solución bastante forzada y lejos de lo que se esperaría como una solución.
     #+begin_src python :results output
 print(
     (lambda x :
@@ -247,3 +248,103 @@ print(
 
     #+RESULTS:
     : 5040
+
+* <2021-05-13 Thu>
+** Ejercicios
+1) dada  un grupo de segmentos(lista de tuplas), calcule la unión de estos, el largo total (mínimo-máximo, suma de largos), y el total de espacios interiores al conjunto
+    #+begin_src python :results output
+segs1=[(1,2),(3,4),(4,6),(10,12)]
+segs2=[(1,3),(0,2),(10,12),(9,15)]
+segs3=[(1,4),(4,5),(5,6),(2,4)]
+
+def union_seg(LS):
+    LSO=None
+    for seg in sorted([segl if segl[0]<=segl[1] else (segl[1], segl[0]) for segl in LS], key=lambda t: t[0]):
+        if LSO is None:#L=[L[0], L[1],..., L[-2], L[-1]]
+            LSO = [seg]
+        elif seg[0]<=LSO[-1][1]:
+            if seg[1]>LSO[-1][1]:
+                LSO[-1]=(LSO[-1][0],seg[1])
+        else:
+            LSO.append(seg)
+    return LSO
+
+def largo_total_span(LS):
+    LSO=union_seg(LS)
+    return LS[-1][1]-LS[0][0]
+
+def largo_total_sum(LS):
+    LSO=union_seg(LS)
+    suma=0
+    for seg in LSO:
+        suma+=seg[1]-seg[0]
+    return suma
+
+def espacio_vacio(LS):
+    return largo_total_span(LS) - largo_total_sum(LS)
+
+print(union_seg(segs1))
+print(largo_total_span(segs1))
+print(largo_total_sum(segs1))
+print(espacio_vacio(segs1))
+print(union_seg(segs2))
+print(largo_total_span(segs2))
+print(largo_total_sum(segs2))
+print(espacio_vacio(segs2))
+print(union_seg(segs3))
+print(largo_total_span(segs3))
+print(largo_total_sum(segs3))
+print(espacio_vacio(segs3))
+    #+end_src
+
+    #+RESULTS:
+    #+begin_example
+    [(1, 2), (3, 6), (10, 12)]
+    11
+    6
+    5
+    [(0, 3), (9, 15)]
+    14
+    9
+    5
+    [(1, 6)]
+    3
+    5
+    -2
+    #+end_example
+
+1) dado un triangulo (tripleta de tuplas) y un punto (tupla), determinar si el punto se encuentra al interior del triangulo
+    #+begin_src python :results output
+trian1=((0,0),(3,1),(4,6))
+trian2=((0,0),(2,0),(1,2))
+point1=(1,1)
+point2=(2,0)
+point3=(0,1)
+
+def areaTrianglePoint(triangle):
+    p1, p2, p3 = triangle
+    return abs(p1[0]*p2[1]+p2[0]*p3[1]+p3[0]*p1[1]-p1[1]*p2[0]-p2[1]*p3[0]-p3[1]*p1[0])/2
+
+def isInTriangle(triangle, p):
+    p1, p2, p3 = triangle
+    totalArea=0
+    for q, r in [(p1, p2), (p1, p3), (p2, p3)]:
+        totalArea += areaTrianglePoint((p, q, r))
+    return totalArea == areaTrianglePoint(triangle)
+
+print(isInTriangle(trian1, point1))
+print(isInTriangle(trian1, point2))
+print(isInTriangle(trian1, point3))
+print(isInTriangle(trian2, point1))
+print(isInTriangle(trian2, point2))
+print(isInTriangle(trian2, point3))
+
+    #+end_src
+
+    #+RESULTS:
+    : True
+    : False
+    : False
+    : True
+    : True
+    : False
